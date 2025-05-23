@@ -1,0 +1,109 @@
+.series {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 68px;
+}
+
+.series .series-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.series .series-title h2 {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.series .series-title a {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: all 0.6s ease-in-out;
+}
+
+.series .series-title a:hover {
+  color: var(--color-red);
+}
+
+.films {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+  max-height: 490px;
+  min-height: 490px;
+}
+
+.films .films-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.films .films-header h2 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+}
+
+.films .films-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.films .films-list .film-card {
+  width: 60%;
+  height: 430px;
+  max-width: 250px;
+  max-height: 430px;
+  border-radius: var(--border-radius15);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background: url("../../img/movie.png") center/cover no-repeat;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.159);
+  transition: all 0.3s ease-in-out;
+}
+
+.films .films-list .film-container:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgb(255, 255, 255);
+  z-index: 10;
+}
+
+.films .films-list .film-card .film-card-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 20%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--border-radius15);
+  padding: 10px;
+}
+
+.films .films-list .film-card .film-card-box h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.films .films-list .film-card .film-card-box span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}

@@ -1,0 +1,174 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 1.5rem;
+  position: fixed;
+  z-index: 1000;
+  background-color: transparent;
+}
+
+.nav__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__logo-a {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav__logo-a:hover {
+  transform: scale(1.1);
+}
+
+.nav__logo .nav__logo-a span {
+  color: var(--color-red);
+}
+
+.nav__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+
+.nav__link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 1.125rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav__links .nav__link.active {
+  color: var();
+}
+
+.nav__links .nav__link:hover {
+  transform: scale(1.1);
+  color: var(--color-red);
+}
+
+.nav-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+}
+
+.nav__icon {
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav__icon:hover {
+  transform: scale(1.1);
+  color: var(--color-red);
+}
+
+.nav__menu-icon {
+  display: none;
+}
+
+/* Slider menu css */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  z-index: 10001;
+  transition: right 0.3s ease-in-out;
+  padding: 0 1rem;
+  overflow: hidden; 
+  pointer-events: auto;
+}
+
+
+.sidebar.open {
+  right: 0;
+}
+
+.sidebar__link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar__link:hover {
+  transform: scale(1.1);
+  color: var(--color-red);
+}
+
+.sidebar__close-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+
+.sidebar__close-icon:hover {
+  transform: scale(1.2);
+  color: var(--color-red);
+}
+
+.sidebar__overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17,17,17,0.85);
+  z-index: 10000;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__menu-icon {
+    display: block;
+    font-size: 1.8rem;
+  }
+
+  .navbar {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__logo-a {
+    font-size: 1.4rem;
+  }
+
+  .nav__icon {
+    font-size: 1.1rem;
+  }
+
+  .nav__menu-icon {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,158 @@
+.movies {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 68px;
+  max-height: 490px;
+}
+
+.movies .movies-hood {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.movies .movies-hood h2 {
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+.movies .movies-hood a {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: all 0.6s ease-in-out;
+}
+
+.movies .movies-hood a:hover {
+  color: var(--color-red);
+}
+
+.movies .movies-cards {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; /* Desktop ve tablet yatay scroll için tek satır */
+  overflow-x: visible;
+}
+
+.movies .movies-cards .movie-card {
+  width: 60%;
+  height: 430px;
+  max-width: 250px;
+  max-height: 430px;
+  border-radius: var(--border-radius15);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background: url("../../img/movie.png") center/cover no-repeat;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.159);
+  transition: all 0.3s ease-in-out;
+}
+
+.movies .movies-cards .movie-container:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgb(255, 255, 255);
+  z-index: 10;
+}
+
+.movies .movies-cards .movie-card .movies__card-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 20%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--border-radius15);
+  padding: 10px;
+}
+
+.movies .movies-cards .movie-card .movies__card-box h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.movies .movies-cards .movie-card .movies__card-box span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* ----------------- Responsive ----------------- */
+
+/* Tablet (481px - 1024px) */
+@media (max-width: 1024px) and (min-width: 481px) {
+  .movies {
+    max-height: none;
+    min-height: auto;
+    margin-top: 50px;
+  }
+
+  .movies .movies-hood h2 {
+    font-size: 2.4rem;
+  }
+
+  .movies .movies-hood a {
+    font-size: 1.1rem;
+  }
+
+  .movies .movies-cards {
+    overflow-x: auto; /* yatay scroll aç */
+    gap: 16px;
+    justify-content: flex-start;
+    padding-bottom: 10px; /* scroll bar için boşluk */
+  }
+
+  .movies .movies-cards .movie-card {
+    flex: 0 0 32%; /* 3 kart yan yana geniş */
+    max-width: none;
+    height: 350px;
+    max-height: none;
+  }
+}
+
+/* Mobil (480px ve altı) */
+@media (max-width: 480px) {
+  .movies {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .movies .movies-hood h2 {
+    font-size: 1.8rem;
+  }
+
+  .movies .movies-hood a {
+    font-size: 0.9rem;
+  }
+
+  .movies .movies-cards {
+    overflow-x: auto; /* yatay scroll aç */
+    gap: 10px;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+  }
+
+  .movies .movies-cards .movie-card {
+    flex: 0 0 90%; /* 1 kart geniş */
+    height: 400px;
+    max-width: none;
+    max-height: none;
+    margin: 0 auto;
+  }
+
+  /* İlk kart dışındaki tüm kartları gizle */
+  .movies .movies-cards .movie-card:not(:first-child) {
+    display: none;
+  }
+}
