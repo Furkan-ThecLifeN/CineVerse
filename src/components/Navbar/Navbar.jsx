@@ -45,7 +45,7 @@ const Navbar = () => {
           <a href="#series" className="nav__link">
             Series
           </a>
-          <a href="./home" className="nav__link">
+          <a href="#featurest" className="nav__link">
             News
           </a>
         </div>
