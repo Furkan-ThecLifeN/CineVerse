@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./movies.css";
 import { getPopularMovies } from "../API/apı";
+import MovieModal from "../MovieModal/MovieModal";
 
-// Tür ID'sini isme çeviren map (örnek)
 const genreMap = {
   28: "Action",
   12: "Adventure",
@@ -16,7 +16,7 @@ const genreMap = {
   36: "History",
   27: "Horror",
   10402: "Music",
-  9648: "Mystery",
+  9648: "Mystery",  
   10749: "Romance",
   878: "Science Fiction",
   10770: "TV Movie",
@@ -27,6 +27,7 @@ const genreMap = {
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -35,6 +36,16 @@ const Movies = () => {
     }
     fetchMovies();
   }, []);
+
+  const handleCardClick = (movie) => {
+    setSelectedMovie(movie);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+    document.body.style.overflow = "auto";
+  };
 
   return (
     <>
@@ -48,12 +59,11 @@ const Movies = () => {
             <div
               key={movie.id}
               className="movie-card movie-container"
+              onClick={() => handleCardClick(movie)}
               style={{
                 backgroundImage: movie.poster_path
                   ? `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`
                   : "url('../../img/movie.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
               }}
             >
               <div className="movies__card-box">
@@ -64,6 +74,12 @@ const Movies = () => {
           ))}
         </div>
       </section>
+
+      {selectedMovie && (
+        <div className="modal-overlay">
+          <MovieModal movieId={selectedMovie.id} onClose={closeModal} />
+        </div>
+      )}
     </>
   );
 };

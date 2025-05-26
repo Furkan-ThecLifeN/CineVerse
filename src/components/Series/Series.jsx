@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getMoviesByGenre, getImageUrl } from "../API/apı";
+import MovieModal from "../MovieModal/MovieModal"; // Modal bileşeni import et
 import "./series.css";
 
 const genres = [
@@ -16,6 +17,7 @@ const Series = () => {
   const [genreMovies, setGenreMovies] = useState({});
   const [activeSlides, setActiveSlides] = useState({});
   const [totalSlides, setTotalSlides] = useState({});
+  const [selectedMovieId, setSelectedMovieId] = useState(null); // Modal için state
 
   useEffect(() => {
     const fetchAllGenres = async () => {
@@ -54,6 +56,18 @@ const Series = () => {
     return () => clearInterval(interval);
   }, [totalSlides]);
 
+  // Modalı kapatmak için fonksiyon
+  const closeModal = () => {
+    setSelectedMovieId(null);
+    document.body.style.overflow = "auto"; // scroll'u aç
+  };
+
+  // Kart tıklanınca modal aç
+  const handleCardClick = (movieId) => {
+    setSelectedMovieId(movieId);
+    document.body.style.overflow = "hidden"; // scroll'u kapat
+  };
+
   return (
     <section className="series" id="series">
       <div className="series-title">
@@ -89,7 +103,9 @@ const Series = () => {
                   key={movie.id}
                   style={{
                     backgroundImage: `url(${getImageUrl(movie.poster_path)})`,
+                    cursor: "pointer",
                   }}
+                  onClick={() => handleCardClick(movie.id)} // modal aç
                 >
                   <div className="film-card-box">
                     <h3>{movie.title}</h3>
@@ -100,6 +116,13 @@ const Series = () => {
           </div>
         );
       })}
+
+      {/* Modal burada gösterilir */}
+      {selectedMovieId && (
+        <div className="modal-overlay">
+          <MovieModal movieId={selectedMovieId} onClose={closeModal} />
+        </div>
+      )}
     </section>
   );
 };

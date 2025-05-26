@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./featuredMovie.css";
-import {
-  getPopularMovies,
-  getMovieDetails,
-  genreMap,
-  getImageUrl,
-} from "../API/apı";
+import { getPopularMovies, getMovieDetails, getImageUrl } from "../API/apı";
+import FeatureModal from "../FeaturesModal/FeatureModal";
 
 const FeaturedMovie = () => {
   const [movie, setMovie] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchMovie() {
@@ -63,10 +60,23 @@ const FeaturedMovie = () => {
                   <strong>Rating:</strong> {movie.vote_average}/10
                 </li>
               </ul>
+              <button
+                className="modal-button"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Watch Trailer
+              </button>
             </div>
           </div>
         </div>
       </section>
+
+      {isModalOpen && (
+        <FeatureModal
+          movieId={movie.id}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 };
