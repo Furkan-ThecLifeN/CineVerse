@@ -30,6 +30,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nav__logo">
+          <img src="./logo.png" alt="logo" className="logo-img" />
           <a href="./home" className="nav__logo-a">
             Cine<span>Verse</span>
           </a>
