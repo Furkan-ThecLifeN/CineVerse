@@ -1,0 +1,177 @@
+.movieverse-wrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.movieverse-title {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.movieverse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.movieverse-card {
+  width: 200px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--border-radius15);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.159);
+  transition: all 0.3s ease-in-out;
+  z-index: 2;
+  position: relative;
+  cursor: pointer;
+}
+
+.movieverse-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgb(255, 255, 255);
+  z-index: 10;
+}
+
+.movieverse__card-box {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 0 0 10px 10px;
+}
+
+.movieverse-movie-name {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.movieverse-genres {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.movieverse-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.movieverse-page-btn {
+  padding: 0.5rem 1rem;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.movieverse-active {
+  background-color: #e50914;
+}
+
+.movieverse-dots {
+  padding: 0.5rem 0.75rem;
+  color: white;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .movieverse-wrapper {
+    max-height: none;
+    min-height: auto;
+    margin-top: 50px;
+  }
+
+  .movieverse-group {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    max-width: 100%;
+  }
+
+  .movieverse-group::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .movieverse-group::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+  }
+
+  .movieverse-card {
+    flex: 0 0 auto;
+    width: 230px;
+    height: 350px;
+    justify-content: flex-end;
+    min-width: 230px;
+  }
+}
+
+@media (max-width: 768px) {
+  .movieverse__card-box {
+    height: 30%;
+    padding: 15px;
+  }
+
+  .movieverse-movie-name {
+    font-size: 1.3rem;
+  }
+
+  .movieverse-genres {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .movieverse-wrapper {
+    width: 90%;
+    margin-top: 30px;
+  }
+
+  .movieverse-group {
+    gap: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+  }
+
+  .movieverse-card {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+    justify-content: flex-end;
+  }
+
+  .movieverse-pagination {
+    width: 100%;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  .movieverse-page-btn {
+    flex: 1 1 auto; /* küçülebilir ve büyüyebilir */
+    min-width: 30px; /* çok küçük olmasın */
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMenu, IoClose } from "react-icons/io5";
 import "./navbar.css";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +20,6 @@ const Navbar = () => {
     document.documentElement.style.overflow = "";
   };
 
-  // Component unmount olunca overflow'u sıfırla (önlem)
   useEffect(() => {
     return () => {
       document.body.style.overflow = "";
@@ -31,24 +32,27 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="nav__logo">
           <img src="./logo.png" alt="logo" className="logo-img" />
-          <a href="./home" className="nav__logo-a">
+          <Link to="/" className="nav__logo-a">
             Cine<span>Verse</span>
-          </a>
+          </Link>
         </div>
 
         <div className="nav__links">
-          <a href="#hero" className="nav__link">
+          <HashLink smooth to="/#hero" className="nav__link">
             Home
-          </a>
-          <a href="#movies" className="nav__link">
+          </HashLink>
+          <HashLink smooth to="/#movies" className="nav__link">
             Movies
-          </a>
-          <a href="#series" className="nav__link">
+          </HashLink>
+          <HashLink smooth to="/#series" className="nav__link">
             Series
-          </a>
-          <a href="#featurest" className="nav__link">
-            News
-          </a>
+          </HashLink>
+          <HashLink smooth to="/#featurest" className="nav__link">
+            Month
+          </HashLink>
+          <Link to="/movieverse" className="nav__link">
+            MovieVerse
+          </Link>
         </div>
 
         <div className="nav-icons">
@@ -61,18 +65,41 @@ const Navbar = () => {
 
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
         <IoClose className="sidebar__close-icon" onClick={closeMenu} />
-        <a href="#hero" className="sidebar__link" onClick={closeMenu}>
+        <HashLink
+          smooth
+          to="/#hero"
+          className="sidebar__link"
+          onClick={closeMenu}
+        >
           Home
-        </a>
-        <a href="#movies" className="sidebar__link" onClick={closeMenu}>
+        </HashLink>
+        <HashLink
+          smooth
+          to="/#movies"
+          className="sidebar__link"
+          onClick={closeMenu}
+        >
           Movies
-        </a>
-        <a href="#series" className="sidebar__link" onClick={closeMenu}>
+        </HashLink>
+        <HashLink
+          smooth
+          to="/#series"
+          className="sidebar__link"
+          onClick={closeMenu}
+        >
           Series
-        </a>
-        <a href="./home" className="sidebar__link" onClick={closeMenu}>
-          News
-        </a>
+        </HashLink>
+        <HashLink
+          smooth
+          to="/#featurest"
+          className="sidebar__link"
+          onClick={closeMenu}
+        >
+          Month
+        </HashLink>
+        <Link to="/movieverse" className="sidebar__link" onClick={closeMenu}>
+          MovieVerse
+        </Link>
       </div>
     </>
   );
