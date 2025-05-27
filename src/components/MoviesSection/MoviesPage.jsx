@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getPopularMovies, genreMap } from "../API/apı";
 import Filter from "../Filter/Filter";
+import MovieModal from "../MovieModal/MovieModal";
 import "./MoviesPage.css";
 
 const MOVIES_PER_PAGE = 20;
@@ -87,6 +88,8 @@ function MoviesPage() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
 
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+
   useEffect(() => {
     async function fetchAllMovies() {
       const all = [];
@@ -111,7 +114,6 @@ function MoviesPage() {
 
     fetchAllMovies();
   }, []);
-  
 
   useEffect(() => {
     let filtered = [...allMovies];
@@ -143,6 +145,8 @@ function MoviesPage() {
   const currentMovies = filteredMovies.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredMovies.length / MOVIES_PER_PAGE);
 
+  const closeModal = () => setSelectedMovieId(null);
+
   return (
     <section className="movieverse-wrapper">
       <Filter
@@ -167,7 +171,9 @@ function MoviesPage() {
                 backgroundImage: movie.poster_path
                   ? `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`
                   : "url('../../img/movie.png')",
+                cursor: "pointer",
               }}
+              onClick={() => setSelectedMovieId(movie.id)} 
             >
               <div className="movieverse__card-box">
                 <h3 className="movieverse-movie-name">{movie.title}</h3>
@@ -187,6 +193,10 @@ function MoviesPage() {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
+
+      {selectedMovieId && (
+        <MovieModal movieId={selectedMovieId} onClose={closeModal} />
+      )}
     </section>
   );
 }

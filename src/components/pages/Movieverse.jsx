@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Hero from "../Hero/Hero";
-import Filter from "../Filter/Filter";
 import MoviesPage from "../MoviesSection/MoviesPage";
 import Footer from "../Footer/Footer";
 import {
@@ -8,7 +7,7 @@ import {
   searchMovies,
   getMoviesByGenre,
   genreMap,
-} from "../API/apı"; // "api" olarak düzelttim
+} from "../API/apı"; 
 
 const Movieverse = () => {
   const [searchTerm, setSearchTerm] = useState("");

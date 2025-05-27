@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getMovieDetails, getMovieTrailer } from "../API/apı";
 import "./MovieModal.css";
 
@@ -9,6 +9,8 @@ const MovieModal = ({ movieId, onClose }) => {
   const [showNotification, setShowNotification] = useState("");
 
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchMovie = async () => {
       const data = await getMovieDetails(movieId);
       const trailer = await getMovieTrailer(movieId);
@@ -18,19 +20,20 @@ const MovieModal = ({ movieId, onClose }) => {
       setIsFavorite(favorites.some((fav) => fav.id === data.id));
     };
 
-    if (movieId) fetchMovie();
+    fetchMovie();
 
-    // Modal açılır açılmaz body'ye class ekle
-    if (movieId) {
-      document.body.classList.add("modal-open");
-    }
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
 
-    // Cleanup - Modal kapanınca class çıkar
     return () => {
-      document.body.classList.remove("modal-open");
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
     };
   }, [movieId]);
-  
 
   const handleToggleFavorite = () => {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];

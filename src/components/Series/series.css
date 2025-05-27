@@ -110,8 +110,6 @@
   color: var(--primary-color);
 }
 
-/* Slider */
-
 .slider-bars {
   display: flex;
   gap: 8px;
@@ -184,7 +182,6 @@
   }
 }
 
-/* Tablet (481px - 1024px) */
 @media (max-width: 1024px) and (min-width: 481px) {
   .series {
     margin-top: 50px;
@@ -225,7 +222,6 @@
   }
 }
 
-/* Mobil (480px ve altı) */
 @media (max-width: 480px) {
   .series {
     margin-top: 30px;

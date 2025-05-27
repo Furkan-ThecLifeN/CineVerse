@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./hero.css";
 import { getPopularMovies, getImageUrl } from "../API/apı";
 
-// Genre ID - Name eşlemesi
 const genreMap = {
   28: "Action",
   12: "Adventure",

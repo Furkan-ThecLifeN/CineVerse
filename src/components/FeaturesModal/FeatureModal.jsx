@@ -6,7 +6,7 @@ const FeatureModal = ({ movieId, onClose }) => {
   const [movie, setMovie] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null); // Toast mesajı için state
+  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -49,7 +49,7 @@ const FeatureModal = ({ movieId, onClose }) => {
     setToastMessage(message);
     setTimeout(() => {
       setToastMessage(null);
-    }, 3000); // 3 saniye sonra toast kaybolacak
+    }, 3000); 
   };
 
   if (!movie || !trailerKey) return null;

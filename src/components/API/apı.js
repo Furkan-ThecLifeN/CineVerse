@@ -11,7 +11,6 @@ export const headers = {
   "Content-Type": "application/json;charset=utf-8",
 };
 
-// Film türleri haritası (ID => Tür ismi)
 export const genreMap = {
   28: "Action",
   12: "Adventure",
@@ -37,8 +36,6 @@ export async function getMovieTrailer(movieId) {
   return trailer?.key || null;
 }
 
-
-// Popüler filmleri getir
 export async function getPopularMovies(page = 1) {
   const response = await fetch(
     `${BASE_URL}/movie/popular?language=en-US&page=${page}`,
@@ -48,7 +45,6 @@ export async function getPopularMovies(page = 1) {
   return data.results;
 }
 
-// Film detayını ve videoları getir (fragmanlar dahil)
 export async function getMovieDetails(movieId) {
   const response = await fetch(
     `${BASE_URL}/movie/${movieId}?language=en-US&append_to_response=videos`,
@@ -58,7 +54,6 @@ export async function getMovieDetails(movieId) {
   return data;
 }
 
-// Arama
 export async function searchMovies(query, page = 1) {
   const response = await fetch(
     `${BASE_URL}/search/movie?query=${encodeURIComponent(
@@ -70,7 +65,6 @@ export async function searchMovies(query, page = 1) {
   return data.results;
 }
 
-// Türlere göre film getir
 export async function getMoviesByGenre(genreId, page = 1) {
   const response = await fetch(
     `${BASE_URL}/discover/movie?with_genres=${genreId}&language=en-US&page=${page}`,
@@ -80,6 +74,5 @@ export async function getMoviesByGenre(genreId, page = 1) {
   return data.results;
 }
 
-// Resim linkini oluştur
 export const getImageUrl = (path) =>
   path ? `https://image.tmdb.org/t/p/original${path}` : "";

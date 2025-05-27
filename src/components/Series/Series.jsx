@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getMoviesByGenre, getImageUrl } from "../API/apı";
-import MovieModal from "../MovieModal/MovieModal"; // Modal bileşeni import et
+import MovieModal from "../MovieModal/MovieModal"; 
 import "./series.css";
 
 const genres = [
@@ -17,7 +17,7 @@ const Series = () => {
   const [genreMovies, setGenreMovies] = useState({});
   const [activeSlides, setActiveSlides] = useState({});
   const [totalSlides, setTotalSlides] = useState({});
-  const [selectedMovieId, setSelectedMovieId] = useState(null); // Modal için state
+  const [selectedMovieId, setSelectedMovieId] = useState(null); 
 
   useEffect(() => {
     const fetchAllGenres = async () => {
@@ -27,7 +27,7 @@ const Series = () => {
 
       for (const genre of genres) {
         const movies = await getMoviesByGenre(genre.id);
-        const limitedMovies = movies.slice(0, 15); // En fazla 15 film
+        const limitedMovies = movies.slice(0, 15); 
         moviesResult[genre.id] = limitedMovies;
         slideCounts[genre.id] = Math.ceil(limitedMovies.length / 5);
         initialSlides[genre.id] = 0;
@@ -56,16 +56,14 @@ const Series = () => {
     return () => clearInterval(interval);
   }, [totalSlides]);
 
-  // Modalı kapatmak için fonksiyon
   const closeModal = () => {
     setSelectedMovieId(null);
-    document.body.style.overflow = "auto"; // scroll'u aç
+    document.body.style.overflow = "auto"; 
   };
 
-  // Kart tıklanınca modal aç
   const handleCardClick = (movieId) => {
     setSelectedMovieId(movieId);
-    document.body.style.overflow = "hidden"; // scroll'u kapat
+    document.body.style.overflow = "hidden"; 
   };
 
   return (
@@ -105,7 +103,7 @@ const Series = () => {
                     backgroundImage: `url(${getImageUrl(movie.poster_path)})`,
                     cursor: "pointer",
                   }}
-                  onClick={() => handleCardClick(movie.id)} // modal aç
+                  onClick={() => handleCardClick(movie.id)} 
                 >
                   <div className="film-card-box">
                     <h3>{movie.title}</h3>
@@ -117,7 +115,6 @@ const Series = () => {
         );
       })}
 
-      {/* Modal burada gösterilir */}
       {selectedMovieId && (
         <div className="modal-overlay">
           <MovieModal movieId={selectedMovieId} onClose={closeModal} />

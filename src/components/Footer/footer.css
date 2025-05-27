@@ -152,7 +152,6 @@
     }
   }
   
-  /* Mobil (480px ve altı) */
 @media (max-width: 480px) {
     .footer .footer-container .footer-about {
         flex-direction: column;
