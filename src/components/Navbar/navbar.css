@@ -1,20 +1,23 @@
 .navbar {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin-top: 1.5rem;
-  position: fixed;
   z-index: 1000;
   background-color: transparent;
+  transition: background-color 0.3s ease;
 }
 
 .nav__logo {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
-  transition: all 0.3s ease-in-out;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
 .nav__logo:hover {
@@ -25,66 +28,65 @@
   width: 46px;
   height: 46px;
   margin-bottom: 10px;
+  user-select: none;
 }
 
 .nav__logo-a {
-  color: var(--primary-color);
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: 700;
+  color: var(--primary-color);
   text-decoration: none;
+  user-select: none;
 }
 
-.nav__logo .nav__logo-a span {
+.nav__logo-a span {
   color: var(--color-red);
 }
 
 .nav__links {
   display: flex;
-  justify-content: center;
+  gap: 5rem;
   align-items: center;
-  gap: 80px;
 }
 
 .nav__link {
+  font-size: 1.125rem;
   color: var(--primary-color);
   text-decoration: none;
-  font-size: 1.125rem;
-  transition: all 0.3s ease-in-out;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
-.nav__links .nav__link.active {
-  color: var();
-}
-
-.nav__links .nav__link:hover {
-  transform: scale(1.1);
+.nav__link:hover,
+.nav__link.active {
   color: var(--color-red);
+  transform: scale(1.1);
 }
 
 .nav-icons {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 1.3rem;
+  align-items: center;
 }
 
 .nav__icon {
-  cursor: pointer;
   font-size: 1.3rem;
-  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  user-select: none;
 }
 
 .nav__icon:hover {
-  transform: scale(1.1);
   color: var(--color-red);
+  transform: scale(1.1);
 }
 
 .nav__menu-icon {
   display: none;
 }
 
-/* Slider menu css */
-
+/* Sidebar styles */
 .sidebar {
   position: fixed;
   top: 0;
@@ -92,35 +94,35 @@
   width: 250px;
   height: 100vh;
   background-color: #111;
-  color: white;
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
-  z-index: 10001;
-  transition: right 0.3s ease-in-out;
   padding: 0 1rem;
-  overflow: hidden; 
+  transition: right 0.3s ease-in-out;
+  z-index: 10001;
   pointer-events: auto;
+  overflow-x: hidden;
 }
-
 
 .sidebar.open {
   right: 0;
 }
 
 .sidebar__link {
+  font-size: 1.3rem;
   color: var(--primary-color);
   text-decoration: none;
-  font-size: 1.3rem;
   font-weight: 500;
-  transition: all 0.3s ease-in-out;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .sidebar__link:hover {
-  transform: scale(1.1);
   color: var(--color-red);
+  transform: scale(1.1);
 }
 
 .sidebar__close-icon {
@@ -129,27 +131,60 @@
   right: 1.5rem;
   font-size: 2rem;
   cursor: pointer;
-  color: white;
-  transition: transform 0.3s ease;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-
 .sidebar__close-icon:hover {
-  transform: scale(1.2);
   color: var(--color-red);
+  transform: scale(1.2);
 }
 
 .sidebar__overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(17,17,17,0.85);
+  inset: 0;
+  background-color: rgba(17, 17, 17, 0.85);
   z-index: 10000;
   pointer-events: auto;
   overflow: hidden;
 }
 
+.auth-button,
+.sidebar__auth-button {
+  background-color: #b91c1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.auth-button {
+  padding: 8px 16px;
+}
+
+.sidebar__auth-button {
+  padding: 12px;
+  margin: 20px 0;
+}
+
+.auth-button:hover,
+.sidebar__auth-button:hover {
+  background-color: #991b1b;
+}
+
+.user-avatar,
+.sidebar__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff4c60;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .nav__links {
     display: none;
@@ -177,5 +212,125 @@
 
   .nav__menu-icon {
     font-size: 1.5rem;
+  }
+}
+
+.user-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.user-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease;
+}
+
+.user-menu-btn:hover,
+.user-menu-btn:focus {
+  background-color: rgba(255, 76, 96, 0.1);
+  outline: none;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff4c60;
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.user-avatar-icon {
+  font-size: 40px;
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.user-avatar-icon:hover {
+  color: var(--color-red);
+  transform: scale(1.1);
+}
+
+.user-name {
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  margin-left: 4px;
+  transition: transform 0.3s ease;
+  color: var(--primary-color);
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+  color: var(--color-red);
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  padding: 8px 12px;
+  min-width: 140px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+}
+
+.dropdown-logout {
+  background-color: #b91c1c;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-logout:hover {
+  background-color: #991b1b;
+}
+
+@media (max-width: 768px) {
+  .user-name {
+    display: none; 
+  }
+
+  .user-menu-btn {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-width: 1.5px;
+  }
+
+  .user-avatar-icon {
+    font-size: 32px;
   }
 }

@@ -6,7 +6,6 @@ import {
   getPopularMovies,
   searchMovies,
   getMoviesByGenre,
-  genreMap,
 } from "../API/apı"; 
 
 const Movieverse = () => {
