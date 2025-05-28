@@ -22,7 +22,6 @@ const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
     document.documentElement.style.overflow = "";
   };
 
-  // Kullanıcı menüsü dışına tıklanınca menüyü kapat
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
@@ -51,75 +50,72 @@ const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
           <HashLink smooth to="/#hero" className="nav__link">
             Home
           </HashLink>
-          <HashLink smooth to="/#movies" className="nav__link">
-            Movies
-          </HashLink>
-          <HashLink smooth to="/#series" className="nav__link">
-            Series
-          </HashLink>
-          <HashLink smooth to="/#featurest" className="nav__link">
-            Month
-          </HashLink>
+
           <Link to="/movieverse" className="nav__link">
             MovieVerse
           </Link>
 
-          {!user ? (
-            <button className="auth-button" onClick={onAuthButtonClick}>
-              Sign In / Sign Up
-            </button>
-          ) : (
-            <div className="user-menu-wrapper" ref={userMenuRef}>
-              <button
-                className="user-menu-btn"
-                onClick={() => setShowUserMenu(!showUserMenu)}
-                aria-haspopup="true"
-                aria-expanded={showUserMenu}
-                aria-label="User menu"
-              >
-                {user.avatarUrl ? (
-                  <img
-                    src={user.avatarUrl}
-                    alt={user.username}
-                    className="user-avatar"
-                  />
-                ) : (
-                  <FaUserCircle className="user-avatar-icon" />
-                )}
-                <span className="user-name">{user.username}</span>
-                <svg
-                  className={`dropdown-arrow ${showUserMenu ? "open" : ""}`}
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 9l6 6 6-6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-
-              {showUserMenu && (
-                <div className="user-dropdown-menu" role="menu">
-                  <button className="dropdown-logout" onClick={onLogout}>
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-          <FaSearch />
+          <Link to="/favorites" className="nav__link">
+            Favorites
+          </Link>
         </div>
+        <div className="sign-up-box">
+          <div className="sign-up">
+            {!user ? (
+              <button className="auth-button" onClick={onAuthButtonClick}>
+                Sign In / Sign Up
+              </button>
+            ) : (
+              <div className="user-menu-wrapper" ref={userMenuRef}>
+                <button
+                  className="user-menu-btn"
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  aria-haspopup="true"
+                  aria-expanded={showUserMenu}
+                  aria-label="User menu"
+                >
+                  {user.avatarUrl ? (
+                    <img
+                      src={user.avatarUrl}
+                      alt={user.username}
+                      className="user-avatar"
+                    />
+                  ) : (
+                    <FaUserCircle className="user-avatar-icon" />
+                  )}
+                  <span className="user-name">{user.username}</span>
+                  <svg
+                    className={`dropdown-arrow ${showUserMenu ? "open" : ""}`}
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
 
-        <div className="nav-icons">
-          <IoMenu className="nav__icon nav__menu-icon" onClick={openMenu} />
+                {showUserMenu && (
+                  <div className="user-dropdown-menu" role="menu">
+                    <button className="dropdown-logout" onClick={onLogout}>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="nav-icons">
+            <IoMenu className="nav__icon nav__menu-icon" onClick={openMenu} />
+          </div>
         </div>
       </nav>
 
@@ -135,32 +131,11 @@ const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
         >
           Home
         </HashLink>
-        <HashLink
-          smooth
-          to="/#movies"
-          className="sidebar__link"
-          onClick={closeMenu}
-        >
-          Movies
-        </HashLink>
-        <HashLink
-          smooth
-          to="/#series"
-          className="sidebar__link"
-          onClick={closeMenu}
-        >
-          Series
-        </HashLink>
-        <HashLink
-          smooth
-          to="/#featurest"
-          className="sidebar__link"
-          onClick={closeMenu}
-        >
-          Month
-        </HashLink>
         <Link to="/movieverse" className="sidebar__link" onClick={closeMenu}>
           MovieVerse
+        </Link>
+        <Link to="/favorites" className="sidebar__link" onClick={closeMenu}>
+          Favorites
         </Link>
 
         {!user ? (

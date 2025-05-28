@@ -16,8 +16,13 @@ const MovieModal = ({ movieId, onClose }) => {
       const trailer = await getMovieTrailer(movieId);
       setMovie(data);
       setTrailerId(trailer);
-      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      setIsFavorite(favorites.some((fav) => fav.id === data.id));
+
+      try {
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        setIsFavorite(favorites.some((fav) => fav.id === data.id));
+      } catch {
+        setIsFavorite(false);
+      }
     };
 
     fetchMovie();
@@ -36,19 +41,26 @@ const MovieModal = ({ movieId, onClose }) => {
   }, [movieId]);
 
   const handleToggleFavorite = () => {
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    try {
+      let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    if (isFavorite) {
-      favorites = favorites.filter((fav) => fav.id !== movie.id);
-      setShowNotification("Removed from favorites");
-    } else {
-      favorites.push(movie);
-      setShowNotification("Added to favorites");
+      if (isFavorite) {
+        favorites = favorites.filter((fav) => fav.id !== movie.id);
+        setShowNotification("Removed from favorites");
+      } else {
+        // Aynı filmi tekrar eklemeyi önle
+        if (!favorites.some((fav) => fav.id === movie.id)) {
+          favorites.push(movie);
+          setShowNotification("Added to favorites");
+        }
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      setIsFavorite(!isFavorite);
+      setTimeout(() => setShowNotification(""), 3000);
+    } catch (error) {
+      console.error("LocalStorage error:", error);
     }
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    setIsFavorite(!isFavorite);
-    setTimeout(() => setShowNotification(""), 3000);
   };
 
   if (!movie) return null;

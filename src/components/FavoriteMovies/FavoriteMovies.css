@@ -1,0 +1,137 @@
+body.modal-open {
+  overflow: hidden;
+}
+
+.favorite-movies-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.filter-wrapper {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-wrapper label {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #e50914;
+  user-select: none;
+  text-shadow: 0 0 8px #e50914aa;
+}
+
+.filter-wrapper select {
+  background-color: #000000;
+  color: #fff;
+  border: 2px solid #e50914;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #e50914 50%),
+    linear-gradient(135deg, #e50914 50%, transparent 50%),
+    linear-gradient(to right, #000000, #000000);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    100% 0;
+  background-size: 6px 6px, 6px 6px, 2.5em 2.5em;
+  background-repeat: no-repeat;
+  padding-right: 3em;
+  box-shadow: inset 0 0 8px #330000;
+}
+
+.filter-wrapper select option {
+  background-color: #000000;
+  color: #fff;
+}
+
+.filter-wrapper select:hover {
+  border-color: #ff1c1c;
+  box-shadow: 0 0 12px #ff1c1caa;
+}
+
+.filter-wrapper select:focus {
+  outline: none;
+  border-color: #ff0000;
+  box-shadow: 0 0 16px #ff0000cc;
+  background-color: #000000;
+}
+
+.filter-wrapper select::-ms-expand {
+  display: none;
+}
+
+.filter-wrapper select option[value="all"] {
+  background-color: transparent !important;
+  color: #e50914;
+  font-weight: 700;
+}
+.movieverse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.movieverse-card {
+  width: 200px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.movieverse-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.movieverse__card-box {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0 0 15px 15px;
+}
+
+.movieverse-movie-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.movieverse-genres {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 0.2rem;
+}
+
+
+
+@media (max-width: 768px) {
+  .movieverse-card {
+    width: 150px;
+    height: 225px;
+  }
+}

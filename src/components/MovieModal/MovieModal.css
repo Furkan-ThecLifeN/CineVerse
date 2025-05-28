@@ -4,11 +4,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.4); /* Opaklığı %40 yaptım, daha hafif karanlık */
   z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(3px); /* Hafif arka plan bulanıklığı */
 }
 
 .movies-modal-toast {
@@ -19,7 +20,7 @@
   color: #000; 
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 15px rgb(255, 255, 255);
+  box-shadow: 0 4px 15px rgb(255 255 255 / 0.7);
   font-size: 1rem;
   font-weight: 600;
   z-index: 110; 
@@ -44,6 +45,7 @@
     opacity: 0;
   }
 }
+
 .movies-modal-box {
   background-color: #1a1a1a;
   color: #f5f5f5;
@@ -56,6 +58,7 @@
   overflow-x: hidden;
   animation: fadeIn 0.3s ease;
   border: 1px solid #ff4d4d;
+  z-index: 105; /* overlay’dan sonra */
 }
 
 .movies-modal-video iframe {
@@ -89,8 +92,6 @@
   scrollbar-width: thin;
   scrollbar-color: #ff4d4d #1a1a1a;
 }
-
-
 
 @media (min-width: 768px) {
   .movies-modal-video iframe {
@@ -162,7 +163,8 @@
 }
 
 .movies-modal-buttons .fav-btn.add {
-  background-color: rgb(255, 0, 0);}
+  background-color: rgb(255, 0, 0);
+}
 
 .movies-modal-buttons .fav-btn.add:hover {
   background-color: #700;

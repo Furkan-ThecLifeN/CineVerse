@@ -8,19 +8,18 @@ import FeaturedMovie from "./components/FeaturedMovie/FeaturedMovie";
 import Footer from "./components/Footer/Footer";
 import { Routes, Route } from "react-router-dom";
 import Movieverse from "./components/pages/Movieverse";
+import FavoriteMoviesPage from "./components/pages/FavoriteMoviesPage"; // Yeni sayfa import
 import AuthModal from "./components/AuthModal/AuthModal";
 
 const App = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState(null); // { username, email, avatarUrl? }
 
-  // Kullanıcı giriş/kayıt başarılı olunca çağrılır
   const handleAuthSuccess = (userData) => {
     setUser(userData);
     setIsAuthModalOpen(false);
   };
 
-  // Çıkış yapıldığında kullanıcı bilgisi sıfırlanır
   const handleLogout = () => {
     setUser(null);
   };
@@ -47,6 +46,7 @@ const App = () => {
           }
         />
         <Route path="/movieverse" element={<Movieverse />} />
+        <Route path="/favorites" element={<FavoriteMoviesPage />} />
       </Routes>
 
       {isAuthModalOpen && (

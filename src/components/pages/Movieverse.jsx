@@ -2,11 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Hero from "../Hero/Hero";
 import MoviesPage from "../MoviesSection/MoviesPage";
 import Footer from "../Footer/Footer";
-import {
-  getPopularMovies,
-  searchMovies,
-  getMoviesByGenre,
-} from "../API/apı"; 
+import { getPopularMovies, searchMovies, getMoviesByGenre } from "../API/apı";
 
 const Movieverse = () => {
   const [searchTerm, setSearchTerm] = useState("");
