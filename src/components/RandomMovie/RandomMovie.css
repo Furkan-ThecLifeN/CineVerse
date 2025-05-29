@@ -1,0 +1,202 @@
+.random-featured {
+  margin: 6rem auto;
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 68px;
+}
+
+.random-button {
+  padding: 14px 28px;
+  background-color: transparent;
+  color: #ff0000;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.random-button:hover {
+  background-color: #ff0000;
+  color: white;
+}
+
+.random-container {
+  width: 100%;
+  max-height: 600px;
+  min-height: 400px;
+  background-color: #121212;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: 0.5s ease;
+  position: relative;
+}
+
+.random-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgb(255, 0, 0);
+}
+
+.random-container.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.random-card {
+  display: flex;
+  width: 100%;
+  flex: 1 1 auto;
+  flex-direction: row;
+  gap: 1.5rem;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: auto;
+}
+
+.random-img {
+  flex: 1;
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.random-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.random-info {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.random-info h2 {
+  color: #ff0000;
+  font-size: 2rem;
+}
+
+.random-info ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.random-info ul li {
+  background-color: rgba(255, 215, 0, 0.1);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: default;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.random-info ul li:hover {
+  background-color: #ffd700;
+  color: #121212;
+}
+
+.random-overview {
+  max-height: 140px;
+  overflow-y: auto;
+  padding-right: 10px;
+  color: #ccc;
+  line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: red transparent;
+}
+
+.random-loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #ff0000;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .random-card {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .random-img,
+  .random-info {
+    width: 100%;
+    height: auto;
+  }
+
+  .random-img {
+    max-height: 300px;
+  }
+
+  .random-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .random-overview {
+    max-height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .random-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .random-info ul li {
+    font-size: 0.85rem;
+  }
+
+  .random-overview {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .random-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .random-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+
+  .random-overview {
+    font-size: 0.85rem;
+  }
+}

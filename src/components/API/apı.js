@@ -24,10 +24,8 @@ export const genreMap = {
 
 export async function getMovieTrailer(movieId) {
   const response = await fetch(
-    `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`,
-    {
-      headers,
-    }
+    `${BASE_URL}/movie/${movieId}/videos?language=en-US`,
+    { headers }
   );
   const data = await response.json();
   const trailer = data.results.find(
@@ -76,3 +74,12 @@ export async function getMoviesByGenre(genreId, page = 1) {
 
 export const getImageUrl = (path) =>
   path ? `https://image.tmdb.org/t/p/original${path}` : "";
+
+export async function getMovieCast(movieId) {
+  const response = await fetch(
+    `${BASE_URL}/movie/${movieId}/credits?language=en-US`,
+    { headers }
+  );
+  const data = await response.json();
+  return data.cast || [];
+}

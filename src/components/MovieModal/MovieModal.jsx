@@ -103,11 +103,19 @@ const MovieModal = ({ movieId, onClose }) => {
 
           <div className="movies-modal-buttons">
             <button
+              onClick={() => (window.location.href = `/movie/${movie.id}`)}
+              className="details-btn"
+            >
+              View Details
+            </button>
+
+            <button
               onClick={handleToggleFavorite}
               className={`fav-btn ${isFavorite ? "remove" : "add"}`}
             >
               {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
             </button>
+
             <button onClick={onClose} className="close-btn">
               Close
             </button>

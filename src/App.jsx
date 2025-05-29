@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom"; // Sadece Routes, Route import et
 import Navbar from "./components/Navbar/Navbar";
-import "./App.css";
 import Hero from "./components/Hero/Hero";
 import Movies from "./components/Movies/Movies";
 import Series from "./components/Series/Series";
 import FeaturedMovie from "./components/FeaturedMovie/FeaturedMovie";
 import Footer from "./components/Footer/Footer";
-import { Routes, Route } from "react-router-dom";
 import Movieverse from "./components/pages/Movieverse";
-import FavoriteMoviesPage from "./components/pages/FavoriteMoviesPage"; // Yeni sayfa import
+import FavoriteMoviesPage from "./components/pages/FavoriteMoviesPage";
+import MovieDetailsPage from "./components/pages/MovieDetailsPage"; // EKLENDİ
 import AuthModal from "./components/AuthModal/AuthModal";
+import "./App.css";
+import RandomMoviePage from "./components/pages/RandomMoviePage";
 
 const App = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -47,6 +49,8 @@ const App = () => {
         />
         <Route path="/movieverse" element={<Movieverse />} />
         <Route path="/favorites" element={<FavoriteMoviesPage />} />
+        <Route path="/movie/:id" element={<MovieDetailsPage />} />
+        <Route path="/RandomMovie" element={<RandomMoviePage />} />
       </Routes>
 
       {isAuthModalOpen && (

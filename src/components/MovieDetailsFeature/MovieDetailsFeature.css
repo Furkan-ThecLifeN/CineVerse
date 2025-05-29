@@ -1,0 +1,87 @@
+.movie-info-box {
+  max-width: 1400px;
+  width: 90%;
+  margin: 2rem auto;
+  background: #121212;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+  padding: 2rem 3rem;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-info-box:hover {
+  box-shadow: 0 0 35px rgb(255, 0, 0);
+}
+
+.movie-info-box h2 {
+  color: #ffcc00;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.movie-info-box p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #ccc;
+  text-align: justify;
+}
+
+.movie-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 2rem;
+}
+
+.movie-info-list li {
+  background: #1a1a1a;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 204, 0, 0.2);
+  font-size: 1rem;
+  color: #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.movie-info-list li strong {
+  color: #ffcc00;
+  margin-right: 0.5rem;
+}
+
+.movie-info-list li:hover {
+  background: #ffcc00;
+  color: #121212;
+  cursor: default;
+}
+
+.movie-info-list li:hover strong {
+  color: #121212;
+}
+
+@media (max-width: 600px) {
+  .movie-info-box {
+    padding: 1.5rem 2rem;
+  }
+  .movie-info-box h2 {
+    font-size: 2rem;
+  }
+  .movie-info-box p {
+    font-size: 1rem;
+  }
+  .movie-info-list {
+    grid-template-columns: 1fr;
+  }
+}

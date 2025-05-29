@@ -83,36 +83,32 @@ function MoviesPage() {
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
   useEffect(() => {
-    async function fetchAllMovies() {
-      const all = [];
-      const seenIds = new Set();
+    async function fetchInitialMovies() {
+      const firstPageMovies = await getPopularMovies(1);
+      setAllMovies(firstPageMovies);
 
-      for (let i = 1; i <= TOTAL_PAGES_TO_FETCH; i++) {
+      const seenIds = new Set(firstPageMovies.map((m) => m.id));
+      const all = [...firstPageMovies];
+
+      for (let i = 2; i <= TOTAL_PAGES_TO_FETCH; i++) {
         const pageMovies = await getPopularMovies(i);
-
         const uniqueMovies = pageMovies.filter((movie) => {
-          if (seenIds.has(movie.id)) {
-            return false;
-          }
+          if (seenIds.has(movie.id)) return false;
           seenIds.add(movie.id);
           return true;
         });
-
         all.push(...uniqueMovies);
+        setAllMovies([...all]);
       }
-
-      setAllMovies(all);
     }
 
-    fetchAllMovies();
+    fetchInitialMovies();
   }, []);
 
   useEffect(() => {
@@ -144,7 +140,6 @@ function MoviesPage() {
   const indexOfFirst = indexOfLast - MOVIES_PER_PAGE;
   const currentMovies = filteredMovies.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredMovies.length / MOVIES_PER_PAGE);
-
   const closeModal = () => setSelectedMovieId(null);
 
   return (
@@ -173,7 +168,7 @@ function MoviesPage() {
                   : "url('../../img/movie.png')",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedMovieId(movie.id)} 
+              onClick={() => setSelectedMovieId(movie.id)}
             >
               <div className="movieverse__card-box">
                 <h3 className="movieverse-movie-name">{movie.title}</h3>

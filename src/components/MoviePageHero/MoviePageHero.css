@@ -1,0 +1,119 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease-in-out;
+  width: 100%;
+  height: 700px;
+  min-height: 600px;
+  max-height: 950px;
+  padding: 2rem;
+  position: relative;
+}
+
+.hero .movie-card {
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius15);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.159);
+  transition: all 0.4s ease-in-out;
+  margin-top: 68px;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: background-image 1s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hero .movie-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.hero .movie-card .movie__card-box {
+  padding: 1.2rem 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius15);
+}
+
+.hero .movie-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.hero .movie__card-box span {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero {
+    height: 80vh;
+    padding: 1.5rem;
+  }
+
+  .hero .movie-card {
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero .movie-card .movie__card-box .movie-title {
+    font-size: 1.7rem;
+  }
+
+  .hero .movie-card .movie__card-box span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 70vh;
+  }
+
+  .hero .movie-card {
+    max-width: 90%;
+    aspect-ratio: 16 / 10;
+  }
+
+  .hero .movie-card .movie__card-box .movie-title {
+    font-size: 1.4rem;
+  }
+
+  .hero .movie-card .movie__card-box span {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 60vh;
+  }
+
+  .hero .movie-card {
+    max-width: 95%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero .movie-card .movie__card-box .movie-title {
+    font-size: 1.2rem;
+  }
+
+  .hero .movie-card .movie__card-box span {
+    font-size: 0.9rem;
+  }
+}

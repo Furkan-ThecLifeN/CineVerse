@@ -4,6 +4,7 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import "./navbar.css";
+import logo from "../../assets/logo.png";
 
 const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
     <>
       <nav className="navbar">
         <div className="nav__logo">
-          <img src="./logo.png" alt="logo" className="logo-img" />
+          <img src={logo} alt="Logo" className="logo-img" />
           <Link to="/" className="nav__logo-a">
             Cine<span>Verse</span>
           </Link>
@@ -57,6 +58,10 @@ const Navbar = ({ onAuthButtonClick, user, onLogout }) => {
 
           <Link to="/favorites" className="nav__link">
             Favorites
+          </Link>
+
+          <Link to="/RandomMovie" className="nav__link">
+            Random Movie
           </Link>
         </div>
         <div className="sign-up-box">
