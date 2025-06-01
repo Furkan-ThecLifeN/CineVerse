@@ -1,29 +1,47 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom"; // Sadece Routes, Route import et
+import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import Movies from "./components/Movies/Movies";
 import Series from "./components/Series/Series";
 import FeaturedMovie from "./components/FeaturedMovie/FeaturedMovie";
 import Footer from "./components/Footer/Footer";
+
 import Movieverse from "./components/pages/Movieverse";
 import FavoriteMoviesPage from "./components/pages/FavoriteMoviesPage";
-import MovieDetailsPage from "./components/pages/MovieDetailsPage"; // EKLENDİ
-import AuthModal from "./components/AuthModal/AuthModal";
-import "./App.css";
+import MovieDetailsPage from "./components/pages/MovieDetailsPage";
 import RandomMoviePage from "./components/pages/RandomMoviePage";
+import AuthModal from "./components/AuthModal/AuthModal";
 
 const App = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [user, setUser] = useState(null); // { username, email, avatarUrl? }
+  const [user, setUser] = useState(null);
+
+  // Kullanıcı giriş yapmış mı kontrolü (localStorage'dan token çek ve doğrula)
+  React.useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      setUser(parsedUser);
+      // Burada istersen token doğrulaması yapmak için backend çağrısı yapabilirsin
+    }
+  }, []);
 
   const handleAuthSuccess = (userData) => {
     setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
     setIsAuthModalOpen(false);
+
+    // Axios için default header ayarla
+    axios.defaults.headers.common["Authorization"] = `Bearer ${userData.token}`;
   };
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
   };
 
   return (
@@ -49,8 +67,16 @@ const App = () => {
         />
         <Route path="/movieverse" element={<Movieverse />} />
         <Route path="/favorites" element={<FavoriteMoviesPage />} />
-        <Route path="/movie/:id" element={<MovieDetailsPage />} />
-        <Route path="/RandomMovie" element={<RandomMoviePage />} />
+        <Route
+          path="/movie/:id"
+          element={
+            <MovieDetailsPage
+              user={user}
+              onLoginClick={() => setIsAuthModalOpen(true)}
+            />
+          }
+        />
+        <Route path="/randommovie" element={<RandomMoviePage />} />
       </Routes>
 
       {isAuthModalOpen && (

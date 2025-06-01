@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieDetails, getMovieTrailer } from "../API/apı";
+import axios from "axios";
+
 import Hero from "../MoviePageHero/MoviePageHero";
 import Footer from "../Footer/Footer";
-import MovieDetailsFeature from "../MovieDetailsFeature/MovieDetailsFeature";
 import CastSlider from "../CastSlider/CastSlider";
+import MovieDetailsFeature from "../MovieDetailsFeature/MovieDetailsFeature";
 import MoviePageTrailer from "../MoviePageTrailer/MoviePageTrailer";
-import MovieCommentSection from "../MovieCommentSection/MovieCommentSection";
+import CommentSection from "../Comment/Comment";
 
-const MovieDetailsPage = () => {
+import { getMovieDetails, getMovieTrailer } from "../API/apı"; // Bu API fonksiyonlarını kullanmaya devam et
+
+const MovieDetailsPage = ({ user, onLoginClick }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [trailerId, setTrailerId] = useState(null);
@@ -31,7 +34,7 @@ const MovieDetailsPage = () => {
       <CastSlider movieId={id} />
       <MovieDetailsFeature movie={movie} />
       <MoviePageTrailer trailerId={trailerId} />
-      <MovieCommentSection />
+      <CommentSection movieId={id} user={user} onLoginClick={onLoginClick} />
       <Footer />
     </>
   );

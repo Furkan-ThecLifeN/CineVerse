@@ -1,41 +1,47 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./AuthModal.css";
 
+const API_URL = "http://localhost:5000"; // backend adresin
+
 export default function AuthModal({ onClose, onAuthSuccess }) {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const url = isSignUp
-      ? "http://localhost:5000/signup"
-      : "http://localhost:5000/signin";
-
-    const data = isSignUp ? { email, password, username } : { email, password };
+    setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        setError(errData.message || "Bir hata oluştu");
-        return;
+      let response;
+      if (isSignUp) {
+        response = await axios.post(`${API_URL}/register`, {
+          username,
+          email,
+          password,
+        });
+      } else {
+        response = await axios.post(`${API_URL}/login`, { email, password });
       }
 
-      const resData = await response.json();
-      onAuthSuccess(resData);
-      onClose();
-    } catch (error) {
-      setError("Sunucuya bağlanırken hata oluştu");
-      console.error(error);
+      const { user, token } = response.data;
+      onAuthSuccess({ ...user, token });
+      setUsername("");
+      setEmail("");
+      setPassword("");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,6 +65,7 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
               className="modal-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              disabled={loading}
             />
           )}
           <input
@@ -68,6 +75,7 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
             className="modal-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
           />
           <input
             type="password"
@@ -76,10 +84,15 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
             className="modal-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
           />
           {error && <p className="modal-error">{error}</p>}
-          <button type="submit" className="modal-submit-btn">
-            {isSignUp ? "Create Account" : "Log In"}
+          <button type="submit" className="modal-submit-btn" disabled={loading}>
+            {loading
+              ? "Please wait..."
+              : isSignUp
+              ? "Create Account"
+              : "Log In"}
           </button>
         </form>
         <p className="modal-switch-text">
@@ -91,6 +104,7 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
               setIsSignUp(!isSignUp);
               setError("");
             }}
+            disabled={loading}
           >
             {isSignUp ? "Sign In" : "Sign Up"}
           </button>
