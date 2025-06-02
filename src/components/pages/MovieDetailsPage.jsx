@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
 import Hero from "../MoviePageHero/MoviePageHero";
 import Footer from "../Footer/Footer";
 import CastSlider from "../CastSlider/CastSlider";
 import MovieDetailsFeature from "../MovieDetailsFeature/MovieDetailsFeature";
 import MoviePageTrailer from "../MoviePageTrailer/MoviePageTrailer";
-import CommentSection from "../Comment/Comment";
 
-import { getMovieDetails, getMovieTrailer } from "../API/apı"; // Bu API fonksiyonlarını kullanmaya devam et
+import { getMovieDetails, getMovieTrailer } from "../API/apı";
 
-const MovieDetailsPage = ({ user, onLoginClick }) => {
+const MovieDetailsPage = ({ user }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [trailerId, setTrailerId] = useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const movieId = "movie123"; // Örnek film ID
+  const isLoggedIn = true; 
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -31,10 +32,18 @@ const MovieDetailsPage = ({ user, onLoginClick }) => {
   return (
     <>
       <Hero movie={movie} trailerId={trailerId} />
-      <CastSlider movieId={id} />
       <MovieDetailsFeature movie={movie} />
       <MoviePageTrailer trailerId={trailerId} />
-      <CommentSection movieId={id} user={user} onLoginClick={onLoginClick} />
+      <CastSlider movieId={id} />
+
+      {isAuthModalOpen && (
+        <div className="auth-popup">
+          <div className="auth-box">
+            <p>You must be logged in to comment.</p>
+            <button onClick={() => setIsAuthModalOpen(false)}>Close</button>
+          </div>
+        </div>
+      )}
       <Footer />
     </>
   );

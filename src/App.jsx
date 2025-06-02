@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 
@@ -19,13 +19,14 @@ const App = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Kullanıcı giriş yapmış mı kontrolü (localStorage'dan token çek ve doğrula)
-  React.useEffect(() => {
+  useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
       const parsedUser = JSON.parse(savedUser);
       setUser(parsedUser);
-      // Burada istersen token doğrulaması yapmak için backend çağrısı yapabilirsin
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${parsedUser.token}`;
     }
   }, []);
 
@@ -33,8 +34,6 @@ const App = () => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
     setIsAuthModalOpen(false);
-
-    // Axios için default header ayarla
     axios.defaults.headers.common["Authorization"] = `Bearer ${userData.token}`;
   };
 
@@ -66,7 +65,6 @@ const App = () => {
           }
         />
         <Route path="/movieverse" element={<Movieverse />} />
-        <Route path="/favorites" element={<FavoriteMoviesPage />} />
         <Route
           path="/movie/:id"
           element={

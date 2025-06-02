@@ -4,5 +4,45 @@
     "username": "Furkan",
     "email": "poy53369@jioso.com",
     "password": "$2b$10$oVC0a8b0lHf7dSW/RZQiiu7h52t09mdtdixeS1ZCxqnTwEiTyWDTW"
+  },
+  {
+    "id": 1748769743757,
+    "username": "Furkan ThecLifeN",
+    "email": "gnz06633@toaik.com",
+    "password": "$2b$10$BhbQNnyDu9KUY.JqLY6CnOcSOpgcJy/0Tx8smL9A.ZdFiugP/.Kny"
+  },
+  {
+    "id": 1748769898755,
+    "username": "Furkan3725",
+    "email": "umy57676@jioso.com",
+    "password": "$2b$10$UTbNI2DaMwAV92/xF6DEuO4IfGMHAPsN.wC8zzZTX2FvVehhBthcy"
+  },
+  {
+    "id": 1748874895638,
+    "username": "Burak ",
+    "email": "hkv16342@toaik.com",
+    "password": "$2b$10$Xzr7Y5Lj58Uemc6WyRjo6OokuGuKxKJfJ8Li.Kdsyd8SfKwu5z5OS",
+    "avatar": "https://api.dicebear.com/5.x/identicon/svg?seed=Burak%20"
+  },
+  {
+    "id": 1748875289053,
+    "username": "Furkan",
+    "email": "opd74309@toaik.com",
+    "password": "$2b$10$7XWQtdNhNZskYNpEZA1NLO1PwOdeKU8rXHFmeXnfryek7nbFYDxtm",
+    "avatar": "https://api.dicebear.com/5.x/identicon/svg?seed=Furkan"
+  },
+  {
+    "id": 1748875372401,
+    "username": "Furkan",
+    "email": "nbq33084@toaik.com",
+    "password": "$2b$10$gHxHWTMbCvW0HuvdEmB5i.tCWNQ0DwrOwckKegoFYD7It9fxDlqCu",
+    "avatar": "https://api.dicebear.com/5.x/identicon/svg?seed=Furkan"
+  },
+  {
+    "id": 7,
+    "username": "Furkan",
+    "nickname": "Furkan372534",
+    "email": "add87528@toaik.com",
+    "password": "$2b$10$H06xeJH8z00G1BacfGIGb.j1qrIubX/SX3icU8HBWGtWubBUNO/FW"
   }
 ]

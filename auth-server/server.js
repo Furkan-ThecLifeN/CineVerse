@@ -1,94 +1,120 @@
-const express = require("express");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const path = require("path");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import fs from "fs/promises";
+import path from "path";
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = 5000;
+const SECRET = "your_secret_key"; // production’da .env’den alman önerilir
+const USERS_FILE = path.resolve("users.json");
 
-const USERS_DB = path.join(__dirname, "users.json");
-const SECRET_KEY = "supersecretkey123"; // Bunu production'da .env dosyasına al
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(bodyParser.json());
 
-// Kullanıcıları oku
-const readUsers = () => {
-  if (!fs.existsSync(USERS_DB)) return [];
-  const data = fs.readFileSync(USERS_DB);
-  return JSON.parse(data);
-};
+async function readUsers() {
+  try {
+    const data = await fs.readFile(USERS_FILE, "utf-8");
+    return JSON.parse(data || "[]");
+  } catch (err) {
+    return [];
+  }
+}
 
-// Kullanıcıları kaydet
-const saveUsers = (users) => {
-  fs.writeFileSync(USERS_DB, JSON.stringify(users, null, 2));
-};
+async function writeUsers(users) {
+  await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2), "utf-8");
+}
 
-// Register endpoint
+// Kayıt
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: "Eksik alanlar var" });
+  const { username, nickname, email, password } = req.body;
+
+  if (!username || !nickname || !email || !password) {
+    return res.status(400).json({ message: "Tüm alanlar gereklidir." });
   }
 
-  const users = readUsers();
-  if (users.find((u) => u.email === email)) {
-    return res.status(400).json({ message: "Email zaten kayıtlı" });
+  const users = await readUsers();
+  const emailExists = users.find((u) => u.email === email);
+  const nicknameExists = users.find((u) => u.nickname === nickname);
+
+  if (emailExists || nicknameExists) {
+    return res
+      .status(400)
+      .json({
+        message: "Bu e-posta veya takma ad (nickname) zaten kullanılıyor.",
+      });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = { id: Date.now(), username, email, password: hashedPassword };
+  const newUser = {
+    id: users.length + 1,
+    username,
+    nickname,
+    email,
+    password: hashedPassword,
+  };
+
   users.push(newUser);
-  saveUsers(users);
+  await writeUsers(users);
 
-  const token = jwt.sign({ id: newUser.id, email: newUser.email }, SECRET_KEY, {
-    expiresIn: "1d",
-  });
-
-  res.json({
-    message: "Kayıt başarılı",
-    user: { id: newUser.id, username: newUser.username, email: newUser.email },
+  const token = jwt.sign({ id: newUser.id }, SECRET, { expiresIn: "1d" });
+  return res.status(201).json({
+    user: {
+      id: newUser.id,
+      username: newUser.username,
+      nickname: newUser.nickname,
+      email: newUser.email,
+    },
     token,
   });
 });
 
-// Login endpoint
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const users = readUsers();
-  const user = users.find((u) => u.email === email);
-  if (!user)
-    return res.status(400).json({ message: "Email veya şifre yanlış" });
+
+  const {
+    identifier,
+    email: emailField,
+    nickname: nicknameField,
+    password,
+  } = req.body;
+  const lookup = identifier || emailField || nicknameField;
+
+  if (!lookup || !password) {
+    return res
+      .status(400)
+      .json({
+        message: "Email/Nickname (veya identifier) ve şifre gereklidir.",
+      });
+  }
+
+  const users = await readUsers();
+  const user = users.find((u) => u.email === lookup || u.nickname === lookup);
+
+  if (!user) {
+    console.log("[LOGIN] Kullanıcı bulunamadı:", lookup);
+    return res.status(401).json({ message: "Kullanıcı bulunamadı." });
+  }
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch)
-    return res.status(400).json({ message: "Email veya şifre yanlış" });
+  if (!isMatch) {
+    console.log("[LOGIN] Şifre yanlış. Kullanıcı:", lookup);
+    return res.status(401).json({ message: "Şifre hatalı." });
+  }
 
-  const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-    expiresIn: "1d",
-  });
-
-  res.json({
-    message: "Giriş başarılı",
-    user: { id: user.id, username: user.username, email: user.email },
+  const token = jwt.sign({ id: user.id }, SECRET, { expiresIn: "1d" });
+  return res.json({
+    user: {
+      id: user.id,
+      username: user.username,
+      nickname: user.nickname,
+      email: user.email,
+    },
     token,
   });
 });
 
-// Middleware ile token doğrulama örneği (isteğe bağlı)
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!token) return res.sendStatus(401);
-
-  jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
-
-const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Auth server running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
