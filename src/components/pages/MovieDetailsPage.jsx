@@ -32,9 +32,9 @@ const MovieDetailsPage = ({ user }) => {
   return (
     <>
       <Hero movie={movie} trailerId={trailerId} />
+      <CastSlider movieId={id} />
       <MovieDetailsFeature movie={movie} />
       <MoviePageTrailer trailerId={trailerId} />
-      <CastSlider movieId={id} />
 
       {isAuthModalOpen && (
         <div className="auth-popup">

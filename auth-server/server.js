@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
 import fs from "fs/promises";
 import path from "path";
 

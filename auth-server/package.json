@@ -1,19 +1,25 @@
 {
   "name": "auth-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Authentication server for CineVerse project",
+  "main": "server.js",
   "type": "module",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "auth",
+    "cineverse",
+    "backend",
+    "express",
+    "jwt"
+  ],
+  "author": "Senin Adın",
+  "license": "ISC",
   "dependencies": {
-    "auth-server": "file:",
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "uuid": "^11.1.0"

@@ -74,6 +74,7 @@ const App = () => {
             />
           }
         />
+        <Route path="/favorites" element={<FavoriteMoviesPage />} />
         <Route path="/randommovie" element={<RandomMoviePage />} />
       </Routes>
 
